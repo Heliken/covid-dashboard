@@ -1,0 +1,1 @@
+[Covid-dashboard](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/covid-dashboard.md) by [Heliken](https://github.com/Heliken) and [Helias17](https://github.com/Helias17).
