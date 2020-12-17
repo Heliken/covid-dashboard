@@ -1,0 +1,53 @@
+.table1 {
+  display: flex;
+  flex-direction: column;
+  height: calc(70% - 1rem);
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  padding: 1rem;
+
+  @media (max-width: $screen-laptop) {
+    height: 50vh;
+  }
+
+  &__menu {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  &__period, &__quantity {
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+  }
+
+  &__box {
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 1rem;
+  }
+
+  &__table {
+    width: 100%;
+
+    & thead {
+      background-color: #fff;
+    }
+    
+    & th {
+      position: sticky;
+      top: 0;
+      text-align: left;
+      background-color: #fff;
+    }
+
+    & td {
+      border: 1px solid #ccc;
+    }
+  }
+
+}

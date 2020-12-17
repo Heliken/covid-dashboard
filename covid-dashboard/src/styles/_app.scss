@@ -1,0 +1,75 @@
+.app {
+  height: 100%;
+  padding: 1rem;
+
+  &__header {
+    font-weight: 900;
+  }
+
+  &__body {
+    display: flex;
+
+    @media (max-width: $screen-laptop) {
+      display: block;
+    }
+  }
+
+  &__col1 {
+    flex-basis: 20%;
+    height: 100%;
+    margin-right: 1rem;
+
+    @media (max-width: $screen-laptop) {
+      height: 30vh;
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+  }
+
+  &__col2 {
+    flex-grow: 1;
+    height: 100%;
+    margin-right: 1rem;
+
+    @media (max-width: $screen-laptop) {
+      height: 30vh;
+      margin-bottom: 1rem;
+      margin-right: 0;
+    }
+  }
+
+  &__col3 {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 30%;
+    height: 100%;
+
+    @media (max-width: $screen-laptop) {
+      height: auto;
+    }
+  }
+
+  &__footer {
+
+  }
+
+  &__footer-copyright {
+    margin-right: 1rem;
+  }
+
+  &__footer-link {
+    color: #333;
+    text-decoration: underline;
+
+    &:hover {
+      color: #999;
+    }
+  }
+
+  &__footer-logo {
+    vertical-align: middle;
+    margin: 0 1rem;
+  }
+
+
+}
