@@ -2,8 +2,10 @@ html, body {
   height: 100vh;
   font-size: 15px;
   font-family: 'Fira Sans', sans-serif;
+  overflow: hidden;
 
   @media (max-width: $screen-laptop) {
     height: auto;
+    overflow-y: auto;
   }
 }

@@ -1,6 +1,7 @@
 .chart {
   border: 1px solid #ccc;
   flex-grow: 1;
+  padding: 1rem;
 
   @media (max-width: $screen-laptop) {
     height: 30vh;

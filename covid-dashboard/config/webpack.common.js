@@ -15,7 +15,6 @@ module.exports = {
     filename: '[name].bundle.js',
     publicPath: './',
   },
-
   // Customize the webpack build process
   // Настройки
   plugins: [
