@@ -6,6 +6,7 @@ import Table1 from './js/modules/Table1.js';
 import SearchCountries from './js/modules/SearchCountries.js';
 import countries from './js/modules/countries.js';
 import dom from './js/modules/dom.js';
+import chartBlock from './js/modules/chartBlock.js';
 
 insertAppTemplate();
 addImages();
@@ -15,3 +16,4 @@ appTable1.init();
 countries.loadStats();
 const table1Search = new SearchCountries();
 table1Search.init();
+chartBlock.init();

@@ -1,0 +1,11 @@
+.switch-block{
+  margin-bottom: .5rem;
+  &__section{
+    display: flex;
+    justify-content:space-between;
+    margin-bottom: .5rem;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+}
