@@ -2,6 +2,7 @@
 
 import rsSchoolLogoUrl from '../../images/rs-school-logo.svg';
 import headerLogoUrl from '../../images/logo.svg';
+import iconClose from '../../images/icon-close.svg';
 
 export default () => {
   const appHeader = document.querySelector('.app__header');
@@ -15,4 +16,10 @@ export default () => {
   rsSchoolLogoEl.src = rsSchoolLogoUrl;
   rsSchoolLogoEl.classList.add('app__footer-logo');
   rsLogoLink.prepend(rsSchoolLogoEl);
+
+  const table1Search = document.querySelector('.table1 .search');
+  const table1InputCloseEl = document.createElement('img');
+  table1InputCloseEl.src = iconClose;
+  table1InputCloseEl.classList.add('search__close');
+  table1Search.append(table1InputCloseEl);
 };

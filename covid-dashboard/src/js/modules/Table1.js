@@ -1,37 +1,72 @@
+import dom from './dom.js';
+import showWorldsStats from './showWorldStats.js';
+import countries from './countries.js';
+import showCountryStatsTable1 from './showCountryStatsTable1.js';
+
 export default class {
   constructor() {
-    this.input = document.querySelector('.table1__input');
     this.worldStatsObj = undefined;
   }
 
-  get worldStats() {
-    this.worldStatsObj = JSON.parse(localStorage.getItem('worldStats'));
+  init() {
+    this.loadWorldStats();
+    this.initRadioBtn();
+    this.initCancelBtn();
+  }
+
+  async loadWorldStats() {
+    this.worldStatsObj = localStorage.getItem('worldStats') ? JSON.parse(localStorage.getItem('worldStats')) : undefined;
 
     const nowDay = new Date();
     let worldStatsDate;
-    if (this.worldStatsObj) {
+    // check of we have right object
+    if (typeof this.worldStatsObj === 'object' && 'updated' in this.worldStatsObj) {
       worldStatsDate = new Date(this.worldStatsObj.updated);
-    }
 
-    // if worldStats exists in localstorage and its date today or yesterday, then use it
-    if (this.worldStatsObj && (worldStatsDate.getDate() - nowDay.getDate()) < 2) {
-      return this.worldStatsObj;
+      // if date matches today or yesterday, then use this stats
+      if ((worldStatsDate.getDate() - nowDay.getDate()) < 2) {
+        showWorldsStats(this.worldStatsObj);
+      } else {
+        // load new stats if stats from localstorage is old
+        this.fetchWorldStats();
+      }
+    } else {
+      // load new stats if no stats in localstorage
+      this.fetchWorldStats();
     }
-
-    return false;
   }
 
-  fetchWorldStats() {
-    fetch('https://disease.sh/v3/covid-19/all')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
+  async fetchWorldStats() {
+    const response = await fetch('https://disease.sh/v3/covid-19/all?yesterday=false&twoDaysAgo=false&allowNull=0');
+    if (!response.ok) {
+      throw new Error(`HTTP error ${response.status}`);
+    } else {
+      const json = await response.json();
+      console.log('World stats is loaded');
+      this.worldStatsObj = json;
+      localStorage.setItem('worldStats', JSON.stringify(json));
+      showWorldsStats(this.worldStatsObj);
+    }
+  }
+
+  initRadioBtn() {
+    dom.t1radioTable1.forEach((radioBtn) => {
+      radioBtn.addEventListener('change', () => {
+        if (dom.t1country.dataset.mode === 'world') {
+          showWorldsStats(this.worldStatsObj);
+        } else {
+          const currCountry = dom.t1country.innerHTML;
+          const countryFromStats = countries.stats.find((el) => el.country === currCountry);
+          showCountryStatsTable1(countryFromStats);
         }
-        return response.json();
-      })
-      .then((json) => {
-        this.worldStatsObj = json;
-        localStorage.setItem('worldStats', JSON.stringify(json));
       });
+    });
+  }
+
+  initCancelBtn() {
+    dom.t1cancel.addEventListener('click', () => {
+      dom.t1country.dataset.mode = 'world';
+      showWorldsStats(this.worldStatsObj);
+    });
   }
 }
