@@ -46,5 +46,8 @@
     "type": "git",
     "url": "https://github.com/harryheman/Webpack5-Boilerplate"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "chart.js": "^2.9.4"
+  }
 }

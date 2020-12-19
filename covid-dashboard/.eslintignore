@@ -1,4 +1,5 @@
 node_modules
 /.git
 /.vscode
+config
 /webpack.config.js
