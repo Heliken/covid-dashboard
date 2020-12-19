@@ -16,7 +16,11 @@
     <div class="app__col3">
       <div class="table1">
         <div class="table1__top">
-          <input type="text" placeholder="Search country" class="table1__input">
+          <div class="search">
+            <input type="text" placeholder="Search country" class="search__input" id="table1Input">
+            <div class="search__drop">
+            </div>
+          </div>
           <div class="table1__menu">
             <div class="table1__period">
               <input type="radio" checked name="table1Period" id="table1LastDay">
@@ -52,13 +56,14 @@
             </thead>
             <tbody>
               <tr>
-                <td id="table1Country"></td>
+                <td id="table1Country" data-mode="world"></td>
                 <td id="table1Infected"></td>
                 <td id="table1Recovered"></td>
                 <td id="table1Dead"></td>
               </tr>
             </tbody>
           </table>
+          <button class="table1__cancel">Cancel</button>
         </div>
       </div>
       <div class="chart">

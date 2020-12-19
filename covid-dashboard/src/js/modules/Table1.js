@@ -1,21 +1,17 @@
+import dom from './dom.js';
+import showWorldsStats from './showWorldStats.js';
+import countries from './countries.js';
+import showCountryStatsTable1 from './showCountryStatsTable1.js';
+
 export default class {
   constructor() {
-    this.country = document.querySelector('#table1Country');
-    this.infected = document.querySelector('#table1Infected');
-    this.recovered = document.querySelector('#table1Recovered');
-    this.dead = document.querySelector('#table1Dead');
-    this.radioPeriod = document.querySelectorAll('input[name="table1Period"]');
-    this.radioQuantity = document.querySelectorAll('input[name="table1Quantity"]');
-    this.radioLastDay = document.querySelector('#table1LastDay');
-    this.radioAllTime = document.querySelector('#table1AllTime');
-    this.radioAllPopulation = document.querySelector('#table1AllPopulation');
-    this.radioPer100k = document.querySelector('#table1Per100k');
     this.worldStatsObj = undefined;
   }
 
   init() {
     this.loadWorldStats();
     this.initRadioBtn();
+    this.initCancelBtn();
   }
 
   async loadWorldStats() {
@@ -29,7 +25,7 @@ export default class {
 
       // if date matches today or yesterday, then use this stats
       if ((worldStatsDate.getDate() - nowDay.getDate()) < 2) {
-        this.showWorldsStats();
+        showWorldsStats(this.worldStatsObj);
       } else {
         // load new stats if stats from localstorage is old
         this.fetchWorldStats();
@@ -49,48 +45,28 @@ export default class {
       console.log('World stats is loaded');
       this.worldStatsObj = json;
       localStorage.setItem('worldStats', JSON.stringify(json));
-      this.showWorldsStats();
-    }
-  }
-
-  showWorldsStats() {
-    this.country.textContent = 'World';
-    if (this.radioLastDay.checked && this.radioAllPopulation.checked) {
-      this.infected.textContent = this.worldStatsObj.todayCases;
-      this.recovered.textContent = this.worldStatsObj.todayRecovered;
-      this.dead.textContent = this.worldStatsObj.todayDeaths;
-    } else if (this.radioLastDay.checked && this.radioPer100k.checked) {
-      this.infected.textContent = parseInt((this.worldStatsObj.todayCases * 100000)
-      / this.worldStatsObj.population, 10);
-      this.recovered.textContent = parseInt((this.worldStatsObj.todayRecovered * 100000)
-      / this.worldStatsObj.population, 10);
-      this.dead.textContent = parseInt((this.worldStatsObj.todayDeaths * 100000)
-      / this.worldStatsObj.population, 10);
-    } else if (this.radioAllTime.checked && this.radioAllPopulation.checked) {
-      this.infected.textContent = this.worldStatsObj.cases;
-      this.recovered.textContent = this.worldStatsObj.recovered;
-      this.dead.textContent = this.worldStatsObj.deaths;
-    } else if (this.radioAllTime.checked && this.radioPer100k.checked) {
-      this.infected.textContent = parseInt((this.worldStatsObj.cases * 100000)
-        / this.worldStatsObj.population, 10);
-      this.recovered.textContent = parseInt((this.worldStatsObj.recovered * 100000)
-        / this.worldStatsObj.population, 10);
-      this.dead.textContent = parseInt((this.worldStatsObj.deaths * 100000)
-        / this.worldStatsObj.population, 10);
+      showWorldsStats(this.worldStatsObj);
     }
   }
 
   initRadioBtn() {
-    this.radioPeriod.forEach((radioBtn) => {
+    dom.t1radioTable1.forEach((radioBtn) => {
       radioBtn.addEventListener('change', () => {
-        this.showWorldsStats();
+        if (dom.t1country.dataset.mode === 'world') {
+          showWorldsStats(this.worldStatsObj);
+        } else {
+          const currCountry = dom.t1country.innerHTML;
+          const countryFromStats = countries.stats.find((el) => el.country === currCountry);
+          showCountryStatsTable1(countryFromStats);
+        }
       });
     });
+  }
 
-    this.radioQuantity.forEach((radioBtn) => {
-      radioBtn.addEventListener('change', () => {
-        this.showWorldsStats();
-      });
+  initCancelBtn() {
+    dom.t1cancel.addEventListener('click', () => {
+      dom.t1country.dataset.mode = 'world';
+      showWorldsStats(this.worldStatsObj);
     });
   }
 }
