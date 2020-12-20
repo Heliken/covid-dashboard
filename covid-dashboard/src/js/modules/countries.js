@@ -27,5 +27,4 @@ export default {
       localStorage.setItem('allCountries', JSON.stringify(json));
     }
   },
-
 };

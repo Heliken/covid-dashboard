@@ -1,16 +1,22 @@
 import Chart from 'chart.js';
 import chartOptions from './chartOptions.js';
 import SwitchBlock from './SwitchBlock';
+import countries from './countries';
 
 export default {
   chartElem: null,
   chartObject: null,
   updateButton: null,
-  data: null,
+  worldData: null,
   switchBlock: null,
-  currentData: 'cases',
+  countryData: null,
+  dataType: 'cases',
   currentPeriod: 'all',
-  async getData(dataUrl) {
+  currentQuantity: 'absolute',
+  showingWorldStats: true,
+  country: null,
+  worldPopulation: null,
+  async getDataFromAPI(dataUrl) {
     const request = await fetch(dataUrl);
     const data = await request.json();
     return data;
@@ -18,16 +24,20 @@ export default {
   init() {
     this.switchBlock = new SwitchBlock(document.querySelector('.chart')).init();
     this.addListeners();
+    this.getPopulation();
     this.chartElem = document.getElementById('chart');
-    this.getData('https://disease.sh/v3/covid-19/historical/all?lastdays=366').then((data) => {
-      this.data = data;
-      const dataArray = this.formatDataForChart();
+    this.getDataFromAPI('https://disease.sh/v3/covid-19/historical/all?lastdays=366').then((data) => {
+      this.worldData = data;
+      const dataArray = this.getData();
       this.buildChart(dataArray, 'Number of cases');
     });
   },
   addListeners() {
     const select = this.switchBlock.dataSelect;
     const periodRadio = this.switchBlock.periodInput;
+    const quantityRadio = this.switchBlock.quantityInput;
+    const dropdownUnits = this.switchBlock.dropdownElements;
+    const worldButton = this.switchBlock.resetButton;
     periodRadio.forEach((item) => {
       item.addEventListener('change', () => {
         const name = item.getAttribute('name');
@@ -36,19 +46,59 @@ export default {
         this.switchChartData();
       });
     });
+    quantityRadio.forEach((item) => {
+      item.addEventListener('change', () => {
+        const name = item.getAttribute('name');
+        const val = document.querySelector(`input[name=${name}]:checked`).value;
+        this.currentQuantity = val;
+        this.switchChartData();
+      });
+    });
+    dropdownUnits.forEach((item) => {
+      item.addEventListener('click', () => {
+        this.showingWorldStats = false;
+        this.switchBlock.hideDropdown();
+        if (this.country !== item.textContent) {
+          this.chartElem.classList.add('loading');
+          this.country = item.textContent;
+          this.getDataFromAPI(`https://disease.sh/v3/covid-19/historical/${this.country}?lastdays=366`).then((data) => {
+            this.countryData = data.timeline;
+            this.switchChartData();
+          });
+        } else {
+          this.switchChartData();
+        }
+        this.switchBlock.setTitle(this.country);
+      });
+    });
     select.addEventListener('change', () => {
-      this.currentData = select.value;
+      this.dataType = select.value;
+      this.switchChartData();
+    });
+    worldButton.addEventListener('click', () => {
+      this.showingWorldStats = true;
+      this.switchBlock.setTitle('World');
       this.switchChartData();
     });
   },
-  switchChartData() {
-    const title = `Number of ${this.currentData}`;
+  async switchChartData() {
+    const title = `Number of ${this.dataType}`;
     this.chartObject.data.datasets[0].label = title;
-    this.chartObject.data.datasets[0].data = this.formatDataForChart(this.data[this.currentData]);
+    this.chartObject.data.datasets[0].data = this.getData();
+    this.chartElem.classList.remove('loading');
     this.chartObject.update();
   },
-  formatDataForChart() {
-    return Object.entries(this.data[this.currentData]).map((item, index, array) => {
+  getData() {
+    let originalData;
+    if (this.showingWorldStats) {
+      originalData = this.worldData;
+    } else {
+      originalData = this.countryData;
+    }
+    return this.formatDataForChart(originalData);
+  },
+  formatDataForChart(data) {
+    return Object.entries(data[this.dataType]).map((item, index, array) => {
       const [date, value] = item;
       const dateObj = new Date(date);
       let amount;
@@ -56,6 +106,11 @@ export default {
         amount = value;
       } else {
         amount = index > 0 ? value - array[index - 1][1] : value;
+      }
+      if (this.currentQuantity === 'relative') {
+        const populationCoefficient = 100000 / this.worldPopulation;
+        amount *= populationCoefficient;
+        amount = amount.toFixed(3);
       }
       return {
         x: dateObj,
@@ -65,9 +120,11 @@ export default {
   },
   buildChart(data, title) {
     this.chartObject = new Chart(this.chartElem, {
-      type: 'line',
+      type: 'bar',
       data: {
         datasets: [{
+          barPercentage: 1,
+          categoryPercentage: 1,
           borderWidth: 0,
           backgroundColor: 'rgba(191, 22, 10, 1)',
           label: title,
@@ -76,5 +133,9 @@ export default {
       },
       options: chartOptions,
     });
+  },
+  getPopulation() {
+    const wrld = countries.stats.reduce((a, b) => ({ population: a.population + b.population }));
+    this.worldPopulation = wrld.population;
   },
 };
