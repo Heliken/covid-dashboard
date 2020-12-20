@@ -55,9 +55,8 @@ export default {
       });
     });
     dropdownUnits.forEach((item) => {
-      item.addEventListener('click', () => {
+      item.addEventListener('mousedown', () => {
         this.showingWorldStats = false;
-        this.switchBlock.hideDropdown();
         if (this.country !== item.textContent) {
           this.chartElem.classList.add('loading');
           this.country = item.textContent;
