@@ -11,17 +11,76 @@ export default {
     this.switchBlock = new SwitchBlock(document.querySelector('.countries-list')).init('countriesList');
     this.listBody = document.querySelector('.countries-list__body');
     this.createList();
+    this.addListeners();
   },
   createList() {
     countries.stats.forEach((item) => {
       const flagUrl = item.countryInfo.flag;
       const countryName = item.country;
-      const countryDefaultValue = item[this.dataType];
-      const listUnit = this.createListUnit(flagUrl, countryName, countryDefaultValue);
+      const defaultValue = item[this.dataType];
+      const listUnit = this.createListUnit(flagUrl, countryName, defaultValue);
       this.listElements.push(listUnit);
     });
     this.sortList();
+    this.appendList();
+  },
+  addListeners() {
+    const select = this.switchBlock.dataSelect;
+    const periodRadio = this.switchBlock.periodInput;
+    const quantityRadio = this.switchBlock.quantityInput;
+    const countryInput = this.switchBlock.textInput;
+    periodRadio.forEach((item) => {
+      item.addEventListener('change', () => {
+        const name = item.getAttribute('name');
+        const val = document.querySelector(`input[name=${name}]:checked`).value;
+        this.currentPeriod = val;
+        this.switchListData();
+      });
+    });
+    quantityRadio.forEach((item) => {
+      item.addEventListener('change', () => {
+        const name = item.getAttribute('name');
+        const val = document.querySelector(`input[name=${name}]:checked`).value;
+        this.currentQuantity = val;
+        this.switchListData();
+      });
+    });
+    select.addEventListener('change', () => {
+      this.dataType = select.value;
+      this.switchListData();
+    });
+    countryInput.addEventListener('input', () => {
+      const val = countryInput.value;
+      this.hideListElements(val);
+    });
+  },
+  appendList() {
     this.listElements.forEach((item) => this.listBody.append(item));
+  },
+  switchListData() {
+    this.listElements.forEach((item) => {
+      const itemUnit = item;
+      const country = item.querySelector('.countries-list-unit__title').textContent;
+      const countryData = countries.stats.find((dataItem) => dataItem.country === country);
+      const countryPopulation = countryData.population;
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+      const dataToSearch = this.currentPeriod === 'all' ? this.dataType : `today${capitalizeFirstLetter(this.dataType)}`;
+      let newValue = countryData[dataToSearch];
+      if (this.currentQuantity === 'relative') {
+        const populationCoefficient = 100000 / countryPopulation;
+        newValue *= populationCoefficient;
+        newValue = newValue.toFixed(3);
+      }
+      newValue = newValue.toString() === 'Infinity' ? 0 : newValue;
+      itemUnit.querySelector('.countries-list-unit__value').textContent = newValue;
+    });
+    this.sortList();
+    this.appendList();
+  },
+  clearList() {
+    this.listBody.innerHTML = '';
   },
   createListUnit(flag, name, value) {
     function createElement(type, className, content) {
@@ -41,6 +100,17 @@ export default {
     listUnit.append(titleElem);
     listUnit.append(valueElem);
     return listUnit;
+  },
+  hideListElements(val) {
+    const hiddenClass = 'countries-list-unit--hidden';
+    this.listElements.forEach((item) => {
+      const countryName = item.querySelector('.countries-list-unit__title').textContent;
+      if (!countryName.toLowerCase().includes(val.toLowerCase())) {
+        item.classList.add(hiddenClass);
+      } else {
+        item.classList.remove(hiddenClass);
+      }
+    })
   },
   sortList() {
     this.listElements.sort((a, b) => {

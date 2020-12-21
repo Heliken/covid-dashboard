@@ -82,7 +82,7 @@ export default class SwitchBlock {
     const unitActiveClass = 'switch-block-search__unit--shown';
     this.dropdownElements.forEach((item) => {
       if (val.length > 0) {
-        if (item.textContent.toLowerCase().startsWith(val.toLowerCase())) {
+        if (item.textContent.toLowerCase().includes(val.toLowerCase())) {
           item.classList.add(unitActiveClass);
         } else {
           item.classList.remove(unitActiveClass);

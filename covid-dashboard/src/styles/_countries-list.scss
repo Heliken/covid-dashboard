@@ -24,9 +24,11 @@
     &__title{
       font-weight: bold;
     }
-
     &__value{
       margin-left: auto;
+    }
+    &--hidden{
+      display: none;
     }
   }
 }
