@@ -1,7 +1,8 @@
 .chart {
-  border: 1px solid #ccc;
-  flex-grow: 1;
+  background-color: rgba(#fff, 0.9);
+  border-radius: 5px;
   padding: 1rem;
+  
   canvas{
     transition: opacity .3s ease-in-out;
     &.loading{

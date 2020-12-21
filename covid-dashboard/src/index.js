@@ -1,5 +1,6 @@
 import './styles/index.scss';
 import 'leaflet/dist/leaflet.css';
+import './styles/leaflet_add.scss';
 import '@babel/polyfill';
 import insertAppTemplate from './js/modules/insertAppTemplate.js';
 import addImages from './js/modules/addImages.js';
@@ -9,6 +10,7 @@ import countries from './js/modules/countries.js';
 import dom from './js/modules/dom.js';
 import chartBlock from './js/modules/chartBlock.js';
 import map from './js/modules/map.js';
+import mapLegendInit from './js/modules/mapLegendInit.js';
 
 insertAppTemplate();
 addImages();
@@ -20,3 +22,4 @@ const table1Search = new SearchCountries();
 table1Search.init();
 chartBlock.init();
 map();
+mapLegendInit();

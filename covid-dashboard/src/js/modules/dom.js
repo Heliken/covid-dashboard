@@ -12,5 +12,12 @@ export default {
     this.t1radioAllTime = document.querySelector('#table1AllTime');
     this.t1radioAllPopulation = document.querySelector('#table1AllPopulation');
     this.t1radioPer100k = document.querySelector('#table1Per100k');
+
+    this.legend = document.querySelector('.legend');
+    this.legendTitle = document.querySelector('.legend__title');
+    this.legendMenu = document.querySelector('.legend__menu');
+    this.legendInner = document.querySelector('.legend__inner');
+    this.legendArrow = document.querySelector('.legend__arrow');
+    this.legendInfection = document.querySelector('.infection');
   },
 };
