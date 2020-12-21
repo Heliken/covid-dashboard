@@ -1,10 +1,12 @@
 .chart {
-  border: 1px solid #ccc;
-  flex-grow: 1;
+  background-color: rgba(#fff, 0.9);
+  border-radius: 5px;
   padding: 1rem;
+
   @media (max-width: $screen-laptop) {
     height: 30vh;
   }
+
   canvas{
     max-height: calc(100% - 100px);
   }
