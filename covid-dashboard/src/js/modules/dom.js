@@ -1,5 +1,10 @@
 export default {
   setElements() {
+    this.appHeader = document.querySelector('.app__header');
+    this.appCol1 = document.querySelector('.app__col1');
+    this.appCol3 = document.querySelector('.app__col3');
+    this.appFooter = document.querySelector('.app__footer');
+
     this.t1cancel = document.querySelector('.table1__cancel');
     this.t1country = document.querySelector('#table1Country');
     this.t1infected = document.querySelector('#table1Infected');
@@ -19,5 +24,11 @@ export default {
     this.legendInner = document.querySelector('.legend__inner');
     this.legendArrow = document.querySelector('.legend__arrow');
     this.legendInfection = document.querySelector('.infection');
+    this.legendSelect = document.querySelector('.legend__select');
+    this.legendRadioAll = document.querySelectorAll('.legend input[type="radio"]');
+    this.legendRadioLastDay = document.querySelector('#mapLastDay');
+    this.legendRadioAllTime = document.querySelector('#mapAllTime');
+    this.legendRadioAllPopulation = document.querySelector('#mapAllPopulation');
+    this.legendRadioPer100k = document.querySelector('#mapPer100k');
   },
 };

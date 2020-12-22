@@ -6,8 +6,8 @@ export const circles = {};
 export default (map) => {
   countries.stats.forEach((country) => {
     const { lat, long } = country.countryInfo;
-    const { population, todayCases, cases } = country;
-    const ratio = todayCases / population ? parseInt((todayCases / population) * 10000, 10) : 1;
+    const { population, todayCases } = country;
+    const ratio = todayCases / population ? toFixed((todayCases / population) * 10000, 2) : 1;
     const radiusMin = 15000;
     const radiusMax = 100000;
     let radius = radiusMin * ratio;
@@ -24,7 +24,7 @@ export default (map) => {
         radius,
       }).addTo(map);
       const tooltip = `<strong>${country.country}</strong><br>
-      Today infected: ${todayCases}<br>
+      Last day infected: ${todayCases}<br>
       ${toFixed((todayCases / population) * 100, 3)}% of population
       `;
       circles[country.country].bindTooltip(tooltip);

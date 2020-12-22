@@ -7,8 +7,13 @@
   &__menu {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+
+    & div > *:first-child + label {
+      margin-right: 1rem;
+    }
   }
 
   &__period, &__quantity {
@@ -38,16 +43,22 @@
       text-align: left;
       background-color: #fff;
     }
-
-    & td {
-      border: 1px solid #ccc;
-    }
   }
 
   &__cancel {
     display: block;
     margin-left: auto;
     margin-top: 0.5rem;
+    border: none;
+    font-family: 'Fira Sans', sans-serif;
+    padding: 0.3rem 1rem;
+    border: 1px solid rgba(#666, 0);
+    border-radius: 0.3rem;
+    transition: 0.3s;
+
+    &:hover {
+      border: 1px solid #ccc;
+    }
   }
 
 }

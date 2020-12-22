@@ -1,6 +1,9 @@
 /* eslint-disable no-undef */
 import 'leaflet/dist/leaflet-src.js';
-import mapAddCircles, { circles } from './mapAddCircles.js';
+import mapAddMarkers from './mapAddMarkers.js';
+import mapLegendInit from './mapLegendInit.js';
+import mapMenuInit from './mapMenuInit.js';
+import mapFullscreenInit from './mapFullscreenInit.js';
 
 export default () => {
   const mymap = L.map('leafletMap', {
@@ -21,11 +24,11 @@ export default () => {
     accessToken: 'sk.eyJ1IjoiaGVsaWFzMTciLCJhIjoiY2tpeDA5bXM3M21qbjJzbGJzNG1xeHNjMSJ9.QSoz8QBNsWCVeXdMLQuvgQ',
   }).addTo(mymap);
 
-  mapAddCircles(mymap);
-  console.log(circles);
+  mapAddMarkers(mymap);
 
-  const testTooltip = document.querySelector('#testTooltip');
-  testTooltip.addEventListener('click', () => {
-    circles.Belarus.setTooltipContent('Stop Luka!');
+  mymap.whenReady(() => {
+    mapLegendInit();
+    mapMenuInit();
+    mapFullscreenInit();
   });
 };
