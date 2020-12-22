@@ -9,6 +9,7 @@ import countries from './js/modules/countries.js';
 import dom from './js/modules/dom.js';
 import chartBlock from './js/modules/chartBlock.js';
 import map from './js/modules/map.js';
+import countriesList from './js/modules/countriesList.js';
 
 insertAppTemplate();
 addImages();
@@ -19,4 +20,5 @@ countries.loadStats();
 const table1Search = new SearchCountries();
 table1Search.init();
 chartBlock.init();
+countriesList.init();
 map();
