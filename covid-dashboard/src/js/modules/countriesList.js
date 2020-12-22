@@ -122,27 +122,7 @@ export default {
       return prevVal > nextVal ? -1 : 1;
     });
   },
-  updateParams(dataParams) {
-    this.updateSwitchBlock(dataParams);
-    this.updateParamsValues(dataParams);
+  updateParams() {
     this.switchListData();
-  },
-  updateParamsValues(dataParams) {
-    this.dataType = dataParams.dataType;
-    this.currentPeriod = dataParams.currentPeriod;
-    this.currentQuantity = dataParams.currentQuantity;
-  },
-  updateSwitchBlock(dataParams) {
-    this.switchBlock.dataSelect.value = dataParams.dataType;
-    this.checkNeededRadio(this.switchBlock.quantityInput, dataParams.currentQuantity);
-    this.checkNeededRadio(this.switchBlock.periodInput, dataParams.currentPeriod);
-  },
-  checkNeededRadio(radiobuttons, value) {
-    radiobuttons.forEach((item) => {
-      const element = item;
-      if (element.value === value) {
-        element.checked = true;
-      }
-    });
   },
 };

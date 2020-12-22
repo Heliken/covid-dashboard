@@ -17,7 +17,33 @@ export default {
     this.syncBlocks();
   },
   syncBlocks() {
-    countriesList.updateParams(this.dataParams);
-    chartBlock.updateParams(this.dataParams);
+    this.updateBlockParams(countriesList);
+    this.updateBlockParams(chartBlock);
+  },
+  updateBlockParams(block) {
+    this.updateParamsValues(block);
+    this.updateSwitchBlock(block);
+    block.updateParams(this.dataParams);
+  },
+  updateParamsValues(block) {
+    const blockEntity = block;
+    blockEntity.dataType = this.dataParams.dataType;
+    blockEntity.currentPeriod = this.dataParams.currentPeriod;
+    blockEntity.currentQuantity = this.dataParams.currentQuantity;
+    blockEntity.showingWorldStats = this.dataParams.showingWorldStats;
+  },
+  updateSwitchBlock(block) {
+    const blockEntity = block;
+    blockEntity.switchBlock.dataSelect.value = this.dataParams.dataType;
+    this.checkNeededRadio(blockEntity.switchBlock.quantityInput, this.dataParams.currentQuantity);
+    this.checkNeededRadio(blockEntity.switchBlock.periodInput, this.dataParams.currentPeriod);
+  },
+  checkNeededRadio(radiobuttons, value) {
+    radiobuttons.forEach((item) => {
+      const element = item;
+      if (element.value === value) {
+        element.checked = true;
+      }
+    });
   },
 };

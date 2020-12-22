@@ -160,31 +160,10 @@ export default {
   },
   updateParams(dataParams) {
     const newCountry = this.country !== dataParams.country;
-    this.updateSwitchBlock(dataParams);
-    this.updateParamsValues(dataParams);
     if (newCountry) {
       this.setCountryData(dataParams.country);
     } else {
       this.switchChartData();
     }
-  },
-  updateParamsValues(dataParams) {
-    this.dataType = dataParams.dataType;
-    this.currentPeriod = dataParams.currentPeriod;
-    this.currentQuantity = dataParams.currentQuantity;
-    this.showingWorldStats = dataParams.showingWorldStats;
-  },
-  updateSwitchBlock(dataParams) {
-    this.switchBlock.dataSelect.value = dataParams.dataType;
-    this.checkNeededRadio(this.switchBlock.quantityInput, dataParams.currentQuantity);
-    this.checkNeededRadio(this.switchBlock.periodInput, dataParams.currentPeriod);
-  },
-  checkNeededRadio(radiobuttons, value) {
-    radiobuttons.forEach((item) => {
-      const element = item;
-      if (element.value === value) {
-        element.checked = true;
-      }
-    });
   },
 };
