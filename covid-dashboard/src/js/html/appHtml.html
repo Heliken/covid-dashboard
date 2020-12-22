@@ -1,6 +1,6 @@
 <div class="app">
   <div class="app__header">
-    COVID-19 Dashboard
+    <h1 class="app__title">COVID-19 Dashboard</h1>
   </div>
   <div class="app__body">
     <div class="app__col1">
@@ -10,8 +10,58 @@
     </div>
     <div class="app__col2">
       <div class="map" id="leafletMap">
-        Map
       </div>
+      <div class="legend">
+        <p class="legend__title">Map legend and filter <span class="legend__arrow">›</span></p>
+        <div class="legend__inner">
+          <div class="legend__menu">
+            <div class="legend__select-box">
+              <select class="legend__select">
+                <option value="cases" selected>Infected</option>
+                <option value="recovered">Recovered</option>
+                <option value="deaths">Deaths</option>
+              </select>
+            </div>
+            <div class="legend__radio-box">
+              <div class="legend__period">
+                <input type="radio" checked name="mapPeriod" id="mapLastDay">
+                <label for="mapLastDay">
+                  Last day
+                </label>
+                <input type="radio" name="mapPeriod" id="mapAllTime">
+                <label for="mapAllTime">
+                  All time
+                </label>
+              </div>
+              <div class="legend__quantity">
+                <input type="radio" checked name="mapQuantity" id="mapAllPopulation">
+                <label for="mapAllPopulation">
+                  All population
+                </label>
+                <input type="radio" name="mapQuantity" id="mapPer100k">
+                <label for="mapPer100k">
+                  Per 100K
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="infection">
+            <p class="infection__title">Levels</p>
+            <div class="infection__box">
+              <div class="infection__circle">
+                high
+              </div>
+              <div class="infection__arrow">
+                -› -›
+              </div>
+              <div class="infection__circle infection__circle_small">
+                low
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map-fullscreen"></div>
     </div>
     <div class="app__col3">
       <div class="table1">

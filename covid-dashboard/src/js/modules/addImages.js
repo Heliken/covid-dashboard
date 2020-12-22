@@ -5,11 +5,11 @@ import headerLogoUrl from '../../images/logo.svg';
 import iconClose from '../../images/icon-close.svg';
 
 export default () => {
-  const appHeader = document.querySelector('.app__header');
+  const appTitle = document.querySelector('.app__title');
   const headerLogoEl = document.createElement('img');
   headerLogoEl.src = headerLogoUrl;
   headerLogoEl.classList.add('app__header-logo');
-  appHeader.prepend(headerLogoEl);
+  appTitle.prepend(headerLogoEl);
 
   const rsLogoLink = document.querySelector('#rsLogoLink');
   const rsSchoolLogoEl = document.createElement('img');
