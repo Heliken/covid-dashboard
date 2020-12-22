@@ -17,12 +17,14 @@ export default {
   showingWorldStats: true,
   country: null,
   worldPopulation: null,
+  controller: null,
   async getDataFromAPI(dataUrl) {
     const request = await fetch(dataUrl);
     const data = await request.json();
     return data;
   },
-  init() {
+  init(controller) {
+    this.controller = controller;
     this.switchBlock = new SwitchBlock(document.querySelector('.chart')).init();
     this.addListeners();
     this.getPopulation();
@@ -44,55 +46,60 @@ export default {
       item.addEventListener('change', () => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
-        this.currentPeriod = val;
-        this.switchChartData();
+        this.controller.updateParameters([['currentPeriod', val]]);
       });
     });
     quantityRadio.forEach((item) => {
       item.addEventListener('change', () => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
-        this.currentQuantity = val;
-        this.switchChartData();
+        this.controller.updateParameters([['currentQuantity', val]]);
       });
     });
     dropdownUnits.forEach((item) => {
       item.addEventListener('mousedown', () => {
-        this.showingWorldStats = false;
-        if (this.country !== item.textContent) {
-          this.chartElem.classList.add('loading');
-          this.country = item.textContent;
-          this.getDataFromAPI(`https://disease.sh/v3/covid-19/historical/${this.country}?lastdays=366`).then((data) => {
-            if (data.message) {
-              this.showError(data.message);
-            } else {
-              this.countryData = data.timeline;
-              this.switchChartData();
-            }
-          });
-        } else {
-          this.switchChartData();
-        }
-        this.switchBlock.setTitle(this.country);
+        const countryName = item.textContent;
+        this.controller.updateParameters([['country', countryName], ['showingWorldStats', false]]);
       });
     });
     select.addEventListener('change', () => {
-      this.dataType = select.value;
-      this.switchChartData();
+      this.controller.updateParameters([['dataType', select.value]]);
     });
     worldButton.addEventListener('click', () => {
       this.showingWorldStats = true;
-      this.switchBlock.setTitle('World');
-      this.switchChartData();
+      this.controller.updateParameters([['showingWorldStats', true]]);
     });
   },
+  setCountryData(countryName) {
+    this.showingWorldStats = false;
+    if (this.country !== countryName) {
+      this.chartElem.classList.add('loading');
+      this.country = countryName;
+      this.getCountryData(this.country);
+    } else {
+      this.switchChartData();
+    }
+    this.switchBlock.setTitle(this.country);
+  },
   async switchChartData() {
+    const chartTitle = this.showingWorldStats ? 'World' : this.country;
+    this.switchBlock.setTitle(chartTitle);
     const title = `Number of ${this.dataType}`;
     this.chartObject.data.datasets[0].label = title;
     this.chartObject.data.datasets[0].data = this.getData();
     this.hideError();
     this.chartElem.classList.remove('loading');
     this.chartObject.update();
+  },
+  getCountryData(country) {
+    this.getDataFromAPI(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=366`).then((data) => {
+      if (data.message) {
+        this.showError(data.message);
+      } else {
+        this.countryData = data.timeline;
+        this.switchChartData();
+      }
+    });
   },
   getData() {
     let originalData;
@@ -150,5 +157,34 @@ export default {
   getPopulation() {
     const wrld = countries.stats.reduce((a, b) => ({ population: a.population + b.population }));
     this.worldPopulation = wrld.population;
+  },
+  updateParams(dataParams) {
+    const newCountry = this.country !== dataParams.country;
+    this.updateSwitchBlock(dataParams);
+    this.updateParamsValues(dataParams);
+    if (newCountry) {
+      this.setCountryData(dataParams.country);
+    } else {
+      this.switchChartData();
+    }
+  },
+  updateParamsValues(dataParams) {
+    this.dataType = dataParams.dataType;
+    this.currentPeriod = dataParams.currentPeriod;
+    this.currentQuantity = dataParams.currentQuantity;
+    this.showingWorldStats = dataParams.showingWorldStats;
+  },
+  updateSwitchBlock(dataParams) {
+    this.switchBlock.dataSelect.value = dataParams.dataType;
+    this.checkNeededRadio(this.switchBlock.quantityInput, dataParams.currentQuantity);
+    this.checkNeededRadio(this.switchBlock.periodInput, dataParams.currentPeriod);
+  },
+  checkNeededRadio(radiobuttons, value) {
+    radiobuttons.forEach((item) => {
+      const element = item;
+      if (element.value === value) {
+        element.checked = true;
+      }
+    });
   },
 };

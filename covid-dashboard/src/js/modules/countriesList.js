@@ -7,7 +7,10 @@ export default {
   dataType: 'cases',
   currentPeriod: 'all',
   currentQuantity: 'absolute',
-  init() {
+  controller: null,
+  switchBlock: null,
+  init(controller) {
+    this.controller = controller;
     this.switchBlock = new SwitchBlock(document.querySelector('.countries-list')).init('countriesList');
     this.listBody = document.querySelector('.countries-list__body');
     this.createList();
@@ -33,21 +36,18 @@ export default {
       item.addEventListener('change', () => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
-        this.currentPeriod = val;
-        this.switchListData();
+        this.controller.updateParameters([['currentPeriod', val]]);
       });
     });
     quantityRadio.forEach((item) => {
       item.addEventListener('change', () => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
-        this.currentQuantity = val;
-        this.switchListData();
+        this.controller.updateParameters([['currentQuantity', val]]);
       });
     });
     select.addEventListener('change', () => {
-      this.dataType = select.value;
-      this.switchListData();
+      this.controller.updateParameters([['dataType', select.value]]);
     });
     countryInput.addEventListener('input', () => {
       const val = countryInput.value;
@@ -99,6 +99,9 @@ export default {
     listUnit.append(flagElem);
     listUnit.append(titleElem);
     listUnit.append(valueElem);
+    listUnit.addEventListener('click', () => {
+      this.controller.updateParameters([['country', name], ['showingWorldStats', false]]);
+    });
     return listUnit;
   },
   hideListElements(val) {
@@ -110,13 +113,36 @@ export default {
       } else {
         item.classList.remove(hiddenClass);
       }
-    })
+    });
   },
   sortList() {
     this.listElements.sort((a, b) => {
       const prevVal = Number(a.querySelector('.countries-list-unit__value').textContent);
       const nextVal = Number(b.querySelector('.countries-list-unit__value').textContent);
       return prevVal > nextVal ? -1 : 1;
+    });
+  },
+  updateParams(dataParams) {
+    this.updateSwitchBlock(dataParams);
+    this.updateParamsValues(dataParams);
+    this.switchListData();
+  },
+  updateParamsValues(dataParams) {
+    this.dataType = dataParams.dataType;
+    this.currentPeriod = dataParams.currentPeriod;
+    this.currentQuantity = dataParams.currentQuantity;
+  },
+  updateSwitchBlock(dataParams) {
+    this.switchBlock.dataSelect.value = dataParams.dataType;
+    this.checkNeededRadio(this.switchBlock.quantityInput, dataParams.currentQuantity);
+    this.checkNeededRadio(this.switchBlock.periodInput, dataParams.currentPeriod);
+  },
+  checkNeededRadio(radiobuttons, value) {
+    radiobuttons.forEach((item) => {
+      const element = item;
+      if (element.value === value) {
+        element.checked = true;
+      }
     });
   },
 };

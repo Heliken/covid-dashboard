@@ -14,6 +14,8 @@
     border:1px solid #ccc;
     display: flex;
     margin-bottom:.5rem;
+    transition: border-color .3s ease-in-out;
+    cursor: pointer;
     &:last-child{
       margin-bottom: 0;
     }
@@ -29,6 +31,12 @@
     }
     &--hidden{
       display: none;
+    }
+    &:hover{
+      border-color:red;
+    }
+    &--active{
+      border-color:red;
     }
   }
 }
