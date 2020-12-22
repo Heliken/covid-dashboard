@@ -4,6 +4,7 @@ import SwitchBlock from './SwitchBlock';
 import countries from './countries';
 
 export default {
+  chartError: null,
   chartElem: null,
   chartObject: null,
   updateButton: null,
@@ -26,6 +27,7 @@ export default {
     this.addListeners();
     this.getPopulation();
     this.chartElem = document.getElementById('chart');
+    this.chartError = document.querySelector('.chart__error');
     this.getDataFromAPI('https://disease.sh/v3/covid-19/historical/all?lastdays=366').then((data) => {
       this.worldData = data;
       const dataArray = this.getData();
@@ -55,15 +57,18 @@ export default {
       });
     });
     dropdownUnits.forEach((item) => {
-      item.addEventListener('click', () => {
+      item.addEventListener('mousedown', () => {
         this.showingWorldStats = false;
-        this.switchBlock.hideDropdown();
         if (this.country !== item.textContent) {
           this.chartElem.classList.add('loading');
           this.country = item.textContent;
           this.getDataFromAPI(`https://disease.sh/v3/covid-19/historical/${this.country}?lastdays=366`).then((data) => {
-            this.countryData = data.timeline;
-            this.switchChartData();
+            if (data.message) {
+              this.showError(data.message);
+            } else {
+              this.countryData = data.timeline;
+              this.switchChartData();
+            }
           });
         } else {
           this.switchChartData();
@@ -85,6 +90,7 @@ export default {
     const title = `Number of ${this.dataType}`;
     this.chartObject.data.datasets[0].label = title;
     this.chartObject.data.datasets[0].data = this.getData();
+    this.hideError();
     this.chartElem.classList.remove('loading');
     this.chartObject.update();
   },
@@ -96,6 +102,13 @@ export default {
       originalData = this.countryData;
     }
     return this.formatDataForChart(originalData);
+  },
+  showError(text) {
+    this.chartError.textContent = text;
+    this.chartError.classList.add('chart__error--shown');
+  },
+  hideError() {
+    this.chartError.classList.remove('chart__error--shown');
   },
   formatDataForChart(data) {
     return Object.entries(data[this.dataType]).map((item, index, array) => {
