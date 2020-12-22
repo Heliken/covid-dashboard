@@ -9,4 +9,26 @@
       opacity: .3;
     }
   }
+  &__inner{
+    position: relative;
+  }
+  &__error{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:20px;
+    background-color: rgba(255, 255, 255, .8);
+    opacity: 0;
+    visibility: hidden;
+    &--shown{
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }

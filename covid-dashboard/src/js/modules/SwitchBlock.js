@@ -8,6 +8,9 @@ const stringToHTML = (string) => {
   return elem;
 };
 
+function removeDomElements(arr) {
+  arr.forEach((item) => item.remove());
+}
 export default class SwitchBlock {
   constructor(parent) {
     this.parent = parent;
@@ -15,29 +18,35 @@ export default class SwitchBlock {
     this.dropdownElements = [];
   }
 
-  init() {
-    this.prependToParent();
+  init(switchType) {
+    this.prependToParent(switchType);
     return this;
   }
 
-  prependToParent() {
+  prependToParent(switchType) {
     this.parent.prepend(stringToHTML(this.template));
-    this.getDOMElements();
-    this.generateSelectionFields();
-    this.addInputSearch();
+    this.getDOMElements(switchType);
+    if (switchType !== 'countriesList') {
+      this.generateSelectionFields();
+      this.addInputSearch();
+    }
   }
 
-  getDOMElements() {
+  getDOMElements(switchType) {
     this.textInput = this.parent.querySelector('input[type="text"]');
     this.resetButton = this.parent.querySelector('.switch-block__button');
-    this.textInputDropdown = this.parent.querySelector('.switch-block-search__body');
     this.periodInput = this.parent.querySelectorAll('.radiogroup--period input');
     this.quantityInput = this.parent.querySelectorAll('.radiogroup--quantity input');
-    this.title = this.parent.querySelector('.switch-block__title');
     this.dataSelect = this.parent.querySelector('select');
+    this.textInputDropdown = this.parent.querySelector('.switch-block-search__body');
+    this.title = this.parent.querySelector('.switch-block__title');
     this.resetButton.addEventListener('click', () => {
       this.textInput.value = '';
     });
+    if (switchType === 'countriesList') {
+      removeDomElements([this.title, this.resetButton]);
+      document.querySelector('input[value="last"] + span').textContent = 'Last day';
+    }
     this.setNameForInputs();
   }
 
@@ -73,7 +82,7 @@ export default class SwitchBlock {
     const unitActiveClass = 'switch-block-search__unit--shown';
     this.dropdownElements.forEach((item) => {
       if (val.length > 0) {
-        if (item.textContent.toLowerCase().startsWith(val.toLowerCase())) {
+        if (item.textContent.toLowerCase().includes(val.toLowerCase())) {
           item.classList.add(unitActiveClass);
         } else {
           item.classList.remove(unitActiveClass);
