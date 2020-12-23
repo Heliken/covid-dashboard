@@ -2,6 +2,7 @@ import Chart from 'chart.js';
 import chartOptions from './chartOptions.js';
 import SwitchBlock from './SwitchBlock';
 import countries from './countries';
+import switchSync from './switchSync.js';
 
 export default {
   chartError: null,
@@ -41,19 +42,21 @@ export default {
     const dropdownUnits = this.switchBlock.dropdownElements;
     const worldButton = this.switchBlock.resetButton;
     periodRadio.forEach((item) => {
-      item.addEventListener('change', () => {
+      item.addEventListener('change', (e) => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
         this.currentPeriod = val;
         this.switchChartData();
+        switchSync(e.target);
       });
     });
     quantityRadio.forEach((item) => {
-      item.addEventListener('change', () => {
+      item.addEventListener('change', (e) => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
         this.currentQuantity = val;
         this.switchChartData();
+        switchSync(e.target);
       });
     });
     dropdownUnits.forEach((item) => {
@@ -76,9 +79,10 @@ export default {
         this.switchBlock.setTitle(this.country);
       });
     });
-    select.addEventListener('change', () => {
+    select.addEventListener('change', (e) => {
       this.dataType = select.value;
       this.switchChartData();
+      switchSync(e.target);
     });
     worldButton.addEventListener('click', () => {
       this.showingWorldStats = true;
