@@ -15,8 +15,8 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      border: 3px solid red;
-      background-color: rgba(#f03, 0.3);
+      border: 3px solid $accent;
+      background-color: rgba($accent, 0.3);
       height: 70px;
       width: 70px;
 

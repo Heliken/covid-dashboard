@@ -18,8 +18,8 @@ export default (map) => {
     if (typeof lat === 'number' && typeof long === 'number') {
       // eslint-disable-next-line no-undef
       circles[country.country] = L.circle([lat, long], {
-        color: 'red',
-        fillColor: '#f03',
+        color: '#e60000',
+        fillColor: '#e60000',
         fillOpacity: 0.3,
         radius,
       }).addTo(map);

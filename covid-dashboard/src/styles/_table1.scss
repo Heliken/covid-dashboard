@@ -1,23 +1,9 @@
 .table1 {
-  background-color: rgba(#fff, 0.9);
-  border-radius: 5px;
   margin-bottom: 1rem;
-  padding: 1rem;
 
-  &__menu {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
-
-    & div > *:first-child + label {
-      margin-right: 1rem;
-    }
-  }
 
   &__period, &__quantity {
-    border: 1px solid #ccc;
+    border: 1px solid $border-color;
     border-radius: 0.3rem;
     padding: 0.3rem;
   }
@@ -32,33 +18,12 @@
 
   &__table {
     width: 100%;
-
-    & thead {
-      background-color: #fff;
-    }
-    
     & th {
-      position: sticky;
-      top: 0;
+      padding-bottom: .3rem;
       text-align: left;
-      background-color: #fff;
     }
   }
 
-  &__cancel {
-    display: block;
-    margin-left: auto;
-    margin-top: 0.5rem;
-    border: none;
-    font-family: 'Fira Sans', sans-serif;
-    padding: 0.3rem 1rem;
-    border: 1px solid rgba(#666, 0);
-    border-radius: 0.3rem;
-    transition: 0.3s;
 
-    &:hover {
-      border: 1px solid #ccc;
-    }
-  }
 
 }
