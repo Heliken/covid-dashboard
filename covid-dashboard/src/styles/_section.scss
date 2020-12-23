@@ -1,0 +1,72 @@
+.section{
+  background-color: rgba(255,255,255,.5);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 1rem;
+  position: relative;
+  pointer-events: all;
+  &__fullscreen-button{
+    position: absolute;
+    top:0;
+    right:0;
+    width: 20px;
+    height: 20px;
+    transform:translate(50%,-50%);
+    transition:background-color .3s ease-in-out;
+    cursor: pointer;
+    &:before,&:after {
+      width: 7px;
+      height: 7px;
+      content:"";
+      position: absolute;
+      border-top:2px solid #000;
+      border-right:2px solid #000;
+    }
+    &:after{
+      right:3px;
+      top:3px;
+    }
+    &:before{
+      transform:rotate(180deg);
+      bottom:3px;
+      left:3px;
+    }
+    &:hover{
+      background-color: rgba(255,255,255,.8);
+    }
+  }
+  &--header{
+    padding: .5rem 1rem;
+  }
+  &--fullscreen{
+    overflow: auto;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 1000;
+    padding-top: 2rem;
+    .section__fullscreen-button{
+      transform:none;
+      top:5px;
+      right:5px;
+      &:before{
+        transform:rotate(0deg);
+        
+      }
+      &:after{
+        transform:rotate(180deg);
+      }
+    }
+  }
+}
+@media (max-width: $screen-laptop) {
+  .section{
+    margin:1rem;
+    border: 1px solid $border-color;
+    &--fullscreen{
+      margin:0;
+    }
+  }
+}

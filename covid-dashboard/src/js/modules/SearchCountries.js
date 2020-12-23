@@ -35,11 +35,11 @@ export default class {
     this.arr = countries.stats;
     let finalHtml = this.arr.reduce((dropHtml, el) => {
       if (el.country.toLowerCase().startsWith(userWord.toLowerCase())) {
-        return `${dropHtml} <div class="search__drop-item">${el.country}</div>`;
+        return `${dropHtml} <div class="search__drop-item switch-block-search__unit switch-block-search__unit--shown">${el.country}</div>`;
       }
       return dropHtml;
     }, '');
-    finalHtml = finalHtml.length ? finalHtml : '<div class="search__drop-item search__drop-item_noresult">No results</div>';
+    finalHtml = finalHtml.length ? finalHtml : '<div class="search__drop-item switch-block-search__unit switch-block-search__unit--shown search__drop-item_noresult">No results</div>';
     return finalHtml;
   }
 
@@ -51,7 +51,7 @@ export default class {
 
   initCountryChooseInDrop() {
     this.drop.addEventListener('click', (e) => {
-      if (e.target.classList.toString() === 'search__drop-item') {
+      if (e.target.classList.contains('search__drop-item')) {
         const clickedCountry = e.target.innerHTML;
         const countryFromStats = countries.stats.find((el) => el.country === clickedCountry);
         dom.t1country.dataset.mode = 'country';

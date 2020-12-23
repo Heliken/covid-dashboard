@@ -1,0 +1,14 @@
+.btn{
+  background-color: $accent;
+  color:#fff;
+  transition: background-color .3s ease-in-out;
+  outline:none;
+  border:none;
+  box-shadow:none;
+  font-weight: 600;
+  padding: 0.3rem 1rem;
+  border-radius: 0.3rem;
+  &:hover{
+    background-color: $accent-hover;
+  }
+}

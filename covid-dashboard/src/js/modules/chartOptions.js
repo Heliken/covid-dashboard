@@ -1,6 +1,14 @@
 export default {
+  color: '#000',
   scales: {
     xAxes: [{
+      gridLines: {
+        color: '#000',
+        lineWidth: '.5',
+      },
+      ticks: {
+        fontColor: '#000',
+      },
       type: 'time',
       time: {
         unit: 'month',
@@ -11,7 +19,13 @@ export default {
       },
     }],
     yAxes: [{
+      gridLines: {
+        display: false,
+        color: '#000',
+        lineWidth: '.5',
+      },
       ticks: {
+        fontColor: '#000',
         callback: (value) => {
           let formattedValue = value;
           if (Math.abs(value) >= 1000000) {
