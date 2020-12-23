@@ -16,7 +16,7 @@
         <div class="legend__inner">
           <div class="legend__menu">
             <div class="legend__select-box">
-              <select class="legend__select">
+              <select class="legend__select js-switch-select">
                 <option value="cases" selected>Infected</option>
                 <option value="recovered">Recovered</option>
                 <option value="deaths">Deaths</option>
@@ -24,21 +24,21 @@
             </div>
             <div class="legend__radio-box">
               <div class="legend__period">
-                <input type="radio" checked name="mapPeriod" id="mapLastDay">
+                <input type="radio" checked name="mapPeriod" id="mapLastDay" class="js-day">
                 <label for="mapLastDay">
                   Last day
                 </label>
-                <input type="radio" name="mapPeriod" id="mapAllTime">
+                <input type="radio" name="mapPeriod" id="mapAllTime" class="js-allTime">
                 <label for="mapAllTime">
                   All time
                 </label>
               </div>
               <div class="legend__quantity">
-                <input type="radio" checked name="mapQuantity" id="mapAllPopulation">
+                <input type="radio" checked name="mapQuantity" id="mapAllPopulation" class="js-allPopulation">
                 <label for="mapAllPopulation">
                   All population
                 </label>
-                <input type="radio" name="mapQuantity" id="mapPer100k">
+                <input type="radio" name="mapQuantity" id="mapPer100k" class="js-per100k">
                 <label for="mapPer100k">
                   Per 100K
                 </label>
@@ -73,21 +73,21 @@
           </div>
           <div class="table1__menu">
             <div class="table1__period">
-              <input type="radio" checked name="table1Period" id="table1LastDay">
+              <input type="radio" checked name="table1Period" id="table1LastDay" class="js-day">
               <label for="table1LastDay">
                 Last day
               </label>
-              <input type="radio" name="table1Period" id="table1AllTime">
+              <input type="radio" name="table1Period" id="table1AllTime" class="js-allTime">
               <label for="table1AllTime">
                 All time
               </label>
             </div>
             <div class="table1__quantity">
-              <input type="radio" checked name="table1Quantity" id="table1AllPopulation">
+              <input type="radio" checked name="table1Quantity" id="table1AllPopulation" class="js-allPopulation">
               <label for="table1AllPopulation">
                 All population
               </label>
-              <input type="radio" name="table1Quantity" id="table1Per100k">
+              <input type="radio" name="table1Quantity" id="table1Per100k" class="js-per100k">
               <label for="table1Per100k">
                 Per 100K
               </label>

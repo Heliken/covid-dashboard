@@ -1,5 +1,6 @@
 import SwitchBlock from './SwitchBlock';
 import countries from './countries';
+import switchSync from './switchSync.js';
 
 export default {
   listBody: null,
@@ -30,24 +31,27 @@ export default {
     const quantityRadio = this.switchBlock.quantityInput;
     const countryInput = this.switchBlock.textInput;
     periodRadio.forEach((item) => {
-      item.addEventListener('change', () => {
+      item.addEventListener('change', (e) => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
         this.currentPeriod = val;
         this.switchListData();
+        switchSync(e.target);
       });
     });
     quantityRadio.forEach((item) => {
-      item.addEventListener('change', () => {
+      item.addEventListener('change', (e) => {
         const name = item.getAttribute('name');
         const val = document.querySelector(`input[name=${name}]:checked`).value;
         this.currentQuantity = val;
         this.switchListData();
+        switchSync(e.target);
       });
     });
-    select.addEventListener('change', () => {
+    select.addEventListener('change', (e) => {
       this.dataType = select.value;
       this.switchListData();
+      switchSync(e.target);
     });
     countryInput.addEventListener('input', () => {
       const val = countryInput.value;
@@ -110,7 +114,7 @@ export default {
       } else {
         item.classList.remove(hiddenClass);
       }
-    })
+    });
   },
   sortList() {
     this.listElements.sort((a, b) => {

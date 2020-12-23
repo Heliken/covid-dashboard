@@ -2,6 +2,7 @@ import dom from './dom.js';
 import showWorldsStats from './showWorldStats.js';
 import countries from './countries.js';
 import showCountryStatsTable1 from './showCountryStatsTable1.js';
+import switchSync from './switchSync.js';
 
 export default class {
   constructor() {
@@ -42,7 +43,6 @@ export default class {
       throw new Error(`HTTP error ${response.status}`);
     } else {
       const json = await response.json();
-      console.log('World stats is loaded');
       this.worldStatsObj = json;
       localStorage.setItem('worldStats', JSON.stringify(json));
       showWorldsStats(this.worldStatsObj);
@@ -51,7 +51,7 @@ export default class {
 
   initRadioBtn() {
     dom.t1radioTable1.forEach((radioBtn) => {
-      radioBtn.addEventListener('change', () => {
+      radioBtn.addEventListener('change', (e) => {
         if (dom.t1country.dataset.mode === 'world') {
           showWorldsStats(this.worldStatsObj);
         } else {
@@ -59,6 +59,7 @@ export default class {
           const countryFromStats = countries.stats.find((el) => el.country === currCountry);
           showCountryStatsTable1(countryFromStats);
         }
+        switchSync(e.target);
       });
     });
   }
