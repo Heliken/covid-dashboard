@@ -5,10 +5,12 @@
   padding: 0 1rem 1rem 1rem;
 
   @media (max-width: $screen-laptop) {
+    padding-top:100px;
     display: block;
   }
 
   &__header {
+    z-index:999;
     position: relative;
     margin:.5rem 0;
     user-select: none;
@@ -19,7 +21,7 @@
     @media (max-width: $screen-laptop) {
       position: absolute;
       top:0;
-      left:0;
+      left: 1rem;
     }
   }
   
@@ -40,12 +42,10 @@
   }
 
   &__body {
-    pointer-events: none;
     display: flex;
     flex-grow: 1;
     max-height: calc(100% - 75px - 52px);
     margin-bottom: .5rem;
-    position: relative;
     @media (max-width: $screen-laptop) {
       display: flex;
       flex-direction: column;
@@ -56,10 +56,10 @@
   &__col1 {
     position: relative;
     width: 285px;
+    z-index:999;
     margin-right: 1rem;
 
     @media (max-width: $screen-laptop) {
-      order:2;
       height: 500px;
       width: auto;
       margin-bottom: 1rem;
@@ -74,10 +74,12 @@
   &__col2 {
     flex-grow: 1;
     margin-right: 1rem;
-    position: relative;
+
     @media (max-width: $screen-laptop) {
       position: relative;
-      order:1;
+      height: 500px;
+      margin-bottom: 1rem;
+      margin-right: 0;
     }
 
     &_fullscreen {
@@ -94,16 +96,17 @@
   }
 
   &__col3 {
+    pointer-events: none;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     width: 400px;
+    z-index: 999;
     @media (max-width: $screen-laptop-l) {
       width: 350px;
     }
     @media (max-width: $screen-laptop) {
-      order:2;
       height: auto;
       width: auto;
     }
@@ -114,6 +117,7 @@
   }
 
   &__footer {
+    z-index:999;
     position: relative;
     display: flex;
     &_hidden {
