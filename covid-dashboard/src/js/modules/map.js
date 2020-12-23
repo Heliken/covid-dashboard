@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import 'leaflet/dist/leaflet-src.js';
+import 'leaflet.bigimage';
 import mapAddMarkers from './mapAddMarkers.js';
 import mapLegendInit from './mapLegendInit.js';
 import mapMenuInit from './mapMenuInit.js';
@@ -17,6 +18,7 @@ export default () => {
   dom.map = mymap;
 
   L.control.zoom({ position: 'topright' }).addTo(mymap);
+  L.control.BigImage({ printControlLabel: '💾' }).addTo(mymap);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',

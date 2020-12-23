@@ -1,5 +1,6 @@
 import './styles/index.scss';
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.bigimage/dist/Leaflet.BigImage.min.css';
 import './styles/leaflet_add.scss';
 import '@babel/polyfill';
 import insertAppTemplate from './js/modules/insertAppTemplate.js';
