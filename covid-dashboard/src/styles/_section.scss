@@ -60,10 +60,12 @@
       }
     }
   }
+  &-fullscreen-parent{
+    z-index: 10000;
+  }
 }
 @media (max-width: $screen-laptop) {
   .section{
-    margin:1rem;
     border: 1px solid $border-color;
     &--fullscreen{
       margin:0;

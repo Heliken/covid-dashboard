@@ -1,15 +1,19 @@
 .legend {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 430px;
+  bottom: 68px;
+  z-index:9999;
   padding: 1rem;
   cursor: default;
   user-select: none;
-
+  margin:0;
+  @media (max-width: $screen-laptop-l) {
+    right: 380px;
+  }
   @media (max-width: $screen-laptop) {
-    right: 0px;
-    bottom: 10px;
-    margin: 0;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
   }
 
   &_fullscreen {
