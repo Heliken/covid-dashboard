@@ -4,6 +4,7 @@ import mapAddMarkers from './mapAddMarkers.js';
 import mapLegendInit from './mapLegendInit.js';
 import mapMenuInit from './mapMenuInit.js';
 import mapFullscreenInit from './mapFullscreenInit.js';
+import dom from './dom.js';
 
 export default () => {
   const mymap = L.map('leafletMap', {
@@ -12,6 +13,8 @@ export default () => {
     zoom: 5,
     zoomControl: false,
   });
+
+  dom.map = mymap;
 
   L.control.zoom({ position: 'topright' }).addTo(mymap);
 

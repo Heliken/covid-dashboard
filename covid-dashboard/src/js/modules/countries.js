@@ -22,7 +22,6 @@ export default {
       throw new Error(`HTTP error ${response.status}`);
     } else {
       const json = await response.json();
-      console.log('Countries stats is loaded');
       this.stats = json;
       localStorage.setItem('allCountries', JSON.stringify(json));
     }

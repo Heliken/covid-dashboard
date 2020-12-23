@@ -52,7 +52,6 @@ export default (elemFired) => {
   const elemArr = document.querySelectorAll(`input.${elemFiredClass}, select.${elemFiredClass}`);
 
   if (dom.isSwitchSyncAllowed) {
-    console.log('dispatchElements');
     dispatchElements(elemArr, elemFired);
   }
 };

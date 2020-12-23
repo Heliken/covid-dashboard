@@ -31,6 +31,9 @@ export default {
     this.legendRadioAllPopulation = document.querySelector('#mapAllPopulation');
     this.legendRadioPer100k = document.querySelector('#mapPer100k');
 
+    this.map = document.querySelector('.map');
+    this.col2 = document.querySelector('.app__col2');
+
     this.isSwitchSyncAllowed = true;
   },
 };
