@@ -11,6 +11,7 @@ import dom from './js/modules/dom.js';
 import chartBlock from './js/modules/chartBlock.js';
 import map from './js/modules/map.js';
 import countriesList from './js/modules/countriesList.js';
+import controller from './js/modules/controller.js';
 
 insertAppTemplate();
 addImages();
@@ -20,6 +21,6 @@ appTable1.init();
 countries.loadStats();
 const table1Search = new SearchCountries();
 table1Search.init();
-chartBlock.init();
-countriesList.init();
+chartBlock.init(controller);
+countriesList.init(controller);
 map();
