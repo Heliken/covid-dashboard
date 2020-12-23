@@ -11,6 +11,7 @@ import dom from './js/modules/dom.js';
 import chartBlock from './js/modules/chartBlock.js';
 import map from './js/modules/map.js';
 import countriesList from './js/modules/countriesList.js';
+import uiActions from './js/modules/uiActions.js';
 
 insertAppTemplate();
 addImages();
@@ -22,4 +23,5 @@ const table1Search = new SearchCountries();
 table1Search.init();
 chartBlock.init();
 countriesList.init();
+uiActions();
 map();

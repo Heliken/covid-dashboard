@@ -143,7 +143,7 @@ export default {
           barPercentage: 1,
           categoryPercentage: 1,
           borderWidth: 0,
-          backgroundColor: 'rgba(191, 22, 10, 1)',
+          backgroundColor: '#e60000',
           label: title,
           data,
         }],
