@@ -77,6 +77,7 @@ export default {
           this.switchChartData();
         }
         this.switchBlock.setTitle(this.country);
+        switchSync(this.country, true);
       });
     });
     select.addEventListener('change', (e) => {

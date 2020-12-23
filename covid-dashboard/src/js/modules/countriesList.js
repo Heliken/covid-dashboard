@@ -103,6 +103,9 @@ export default {
     listUnit.append(flagElem);
     listUnit.append(titleElem);
     listUnit.append(valueElem);
+    listUnit.addEventListener('click', () => {
+      switchSync(name, true);
+    });
     return listUnit;
   },
   hideListElements(val) {

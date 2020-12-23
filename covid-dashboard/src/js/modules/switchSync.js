@@ -41,17 +41,28 @@ const dispatchElements = (elemArr, elemFired) => {
   dom.isSwitchSyncAllowed = true;
 };
 
-export default (elemFired) => {
-  // find classname starting from 'js-' in elemFired classList
-  const elemFiredClass = Array.from(elemFired.classList).find((el) => {
-    if (el.startsWith('js-')) return true;
-    return false;
-  });
+export default (elemFired, isInput = false) => {
+  if (!isInput) {
+    // find classname starting from 'js-' in elemFired classList
+    const elemFiredClass = Array.from(elemFired.classList).find((el) => {
+      if (el.startsWith('js-')) return true;
+      return false;
+    });
 
-  // select all elements (inputs or selects) with finded classname
-  const elemArr = document.querySelectorAll(`input.${elemFiredClass}, select.${elemFiredClass}`);
+    // select all elements (inputs or selects) with finded classname
+    const elemArr = document.querySelectorAll(`input.${elemFiredClass}, select.${elemFiredClass}`);
 
-  if (dom.isSwitchSyncAllowed) {
-    dispatchElements(elemArr, elemFired);
+    if (dom.isSwitchSyncAllowed) {
+      dispatchElements(elemArr, elemFired);
+    }
+  } else {
+    console.log(elemFired);
+    /*
+    document.querySelectorAll('.switch-block-search__unit').forEach((item) => {
+      if (item.innerHTML === elemFired) {
+        item.dispatchEvent(new Event('mousedown'));
+      }
+    });
+    */
   }
 };

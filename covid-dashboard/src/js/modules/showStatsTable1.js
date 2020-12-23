@@ -1,7 +1,7 @@
 import dom from './dom.js';
 
-export default (stats) => {
-  dom.t1country.textContent = 'World';
+export default (stats, country) => {
+  dom.t1country.textContent = country;
   if (dom.t1radioLastDay.checked && dom.t1radioAllPopulation.checked) {
     dom.t1infected.textContent = stats.todayCases;
     dom.t1recovered.textContent = stats.todayRecovered;

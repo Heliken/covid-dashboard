@@ -1,6 +1,7 @@
 import countries from './countries.js';
 import dom from './dom.js';
-import showCountryStatsTable1 from './showCountryStatsTable1.js';
+import showStatsTable1 from './showStatsTable1.js';
+import switchSync from './switchSync.js';
 
 export default class {
   constructor() {
@@ -55,8 +56,9 @@ export default class {
         const clickedCountry = e.target.innerHTML;
         const countryFromStats = countries.stats.find((el) => el.country === clickedCountry);
         dom.t1country.dataset.mode = 'country';
-        showCountryStatsTable1(countryFromStats);
+        showStatsTable1(countryFromStats, clickedCountry);
         this.hideDrop();
+        switchSync(clickedCountry, true);
       }
     });
   }

@@ -1,7 +1,6 @@
 import dom from './dom.js';
-import showWorldsStats from './showWorldStats.js';
 import countries from './countries.js';
-import showCountryStatsTable1 from './showCountryStatsTable1.js';
+import showStatsTable1 from './showStatsTable1.js';
 import switchSync from './switchSync.js';
 
 export default class {
@@ -26,7 +25,7 @@ export default class {
 
       // if date matches today or yesterday, then use this stats
       if ((worldStatsDate.getDate() - nowDay.getDate()) < 2) {
-        showWorldsStats(this.worldStatsObj);
+        showStatsTable1(this.worldStatsObj, 'World');
       } else {
         // load new stats if stats from localstorage is old
         this.fetchWorldStats();
@@ -45,7 +44,7 @@ export default class {
       const json = await response.json();
       this.worldStatsObj = json;
       localStorage.setItem('worldStats', JSON.stringify(json));
-      showWorldsStats(this.worldStatsObj);
+      showStatsTable1(this.worldStatsObj, 'World');
     }
   }
 
@@ -53,11 +52,11 @@ export default class {
     dom.t1radioTable1.forEach((radioBtn) => {
       radioBtn.addEventListener('change', (e) => {
         if (dom.t1country.dataset.mode === 'world') {
-          showWorldsStats(this.worldStatsObj);
+          showStatsTable1(this.worldStatsObj, 'World');
         } else {
           const currCountry = dom.t1country.innerHTML;
           const countryFromStats = countries.stats.find((el) => el.country === currCountry);
-          showCountryStatsTable1(countryFromStats);
+          showStatsTable1(countryFromStats, currCountry);
         }
         switchSync(e.target);
       });
@@ -67,7 +66,7 @@ export default class {
   initCancelBtn() {
     dom.t1cancel.addEventListener('click', () => {
       dom.t1country.dataset.mode = 'world';
-      showWorldsStats(this.worldStatsObj);
+      showStatsTable1(this.worldStatsObj, 'World');
     });
   }
 }
