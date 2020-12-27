@@ -1,6 +1,7 @@
 import SwitchBlock from './SwitchBlock';
 import countries from './countries';
 import switchSync from './switchSync.js';
+import syncCountry from './syncCountry.js';
 
 export default {
   listBody: null,
@@ -103,6 +104,9 @@ export default {
     listUnit.append(flagElem);
     listUnit.append(titleElem);
     listUnit.append(valueElem);
+    listUnit.addEventListener('click', () => {
+      syncCountry(name);
+    })
     return listUnit;
   },
   hideListElements(val) {
