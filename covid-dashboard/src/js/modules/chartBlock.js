@@ -76,7 +76,6 @@ export default {
         } else {
           this.switchChartData();
         }
-        this.switchBlock.setTitle(this.country);
       });
     });
     select.addEventListener('change', (e) => {
@@ -86,11 +85,32 @@ export default {
     });
     worldButton.addEventListener('click', () => {
       this.showingWorldStats = true;
-      this.switchBlock.setTitle('World');
       this.switchChartData();
     });
   },
+  setCountryData(countryName) {
+    this.showingWorldStats = false;
+    if (this.country !== countryName) {
+      this.chartElem.classList.add('loading');
+      this.country = countryName;
+      this.getCountryData(this.country);
+    } else {
+      this.switchChartData();
+    }
+  },
+  getCountryData(country) {
+    this.getDataFromAPI(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=366`).then((data) => {
+      if (data.message) {
+        this.showError(data.message);
+      } else {
+        this.countryData = data.timeline;
+        this.switchChartData();
+      }
+    });
+  },
   async switchChartData() {
+    const chartTitle = this.showingWorldStats ? 'World' : this.country;
+    this.switchBlock.setTitle(chartTitle);
     const title = `Number of ${this.dataType}`;
     this.chartObject.data.datasets[0].label = title;
     this.chartObject.data.datasets[0].data = this.getData();
