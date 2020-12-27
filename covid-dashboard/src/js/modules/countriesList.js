@@ -21,7 +21,7 @@ export default {
       const countryName = item.country;
       const defaultValue = item[this.dataType];
       const listUnit = this.createListUnit(flagUrl, countryName, defaultValue);
-      this.listElements.push(listUnit);
+      this.listElements.push([listUnit, defaultValue, countryName]);
     });
     this.sortList();
     this.appendList();
@@ -58,15 +58,23 @@ export default {
       const val = countryInput.value;
       this.hideListElements(val);
     });
+    this.listBody.addEventListener('click', (e) => {
+      const closestUnit = e.target.closest('.countries-list-unit');
+      if (closestUnit) {
+        const title = closestUnit.querySelector('.countries-list-unit__title').textContent;
+        syncCountry(title);
+      }
+    });
   },
   appendList() {
-    this.listElements.forEach((item) => this.listBody.append(item));
+    this.clearList();
+    this.listElements.forEach((item) => this.listBody.append(item[0]));
   },
   switchListData() {
     this.listElements.forEach((item) => {
-      const itemUnit = item;
-      const country = item.querySelector('.countries-list-unit__title').textContent;
-      const countryData = countries.stats.find((dataItem) => dataItem.country === country);
+      const DOMItem = item[0];
+      const countryName = item[2];
+      const countryData = countries.stats.find((dataItem) => dataItem.country === countryName);
       const countryPopulation = countryData.population;
       function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -79,7 +87,9 @@ export default {
         newValue = newValue.toFixed(3);
       }
       newValue = newValue.toString() === 'Infinity' ? 0 : newValue;
-      itemUnit.querySelector('.countries-list-unit__value').textContent = newValue;
+      // eslint-disable-next-line no-param-reassign
+      item[1] = newValue;
+      DOMItem.querySelector('.countries-list-unit__value').textContent = newValue;
     });
     this.sortList();
     this.appendList();
@@ -104,26 +114,23 @@ export default {
     listUnit.append(flagElem);
     listUnit.append(titleElem);
     listUnit.append(valueElem);
-    listUnit.addEventListener('click', () => {
-      syncCountry(name);
-    })
     return listUnit;
   },
   hideListElements(val) {
     const hiddenClass = 'countries-list-unit--hidden';
     this.listElements.forEach((item) => {
-      const countryName = item.querySelector('.countries-list-unit__title').textContent;
+      const countryName = item[2];
       if (!countryName.toLowerCase().includes(val.toLowerCase())) {
-        item.classList.add(hiddenClass);
+        item[0].classList.add(hiddenClass);
       } else {
-        item.classList.remove(hiddenClass);
+        item[0].classList.remove(hiddenClass);
       }
     });
   },
   sortList() {
     this.listElements.sort((a, b) => {
-      const prevVal = Number(a.querySelector('.countries-list-unit__value').textContent);
-      const nextVal = Number(b.querySelector('.countries-list-unit__value').textContent);
+      const prevVal = Number(a[1]);
+      const nextVal = Number(b[1]);
       return prevVal > nextVal ? -1 : 1;
     });
   },
