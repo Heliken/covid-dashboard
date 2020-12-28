@@ -1,0 +1,39 @@
+.countries-list{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  &__body{
+    flex:1;
+    overflow: auto;
+  }
+  &-unit{
+    align-items: center;
+    padding: .3rem;
+    border:1px solid $border-color;
+    transition:border-color .3s ease-in-out;
+    display: flex;
+    margin-bottom:.5rem;
+    border-radius: .3rem;
+    cursor: pointer;
+    &:last-child{
+      margin-bottom: 0;
+    }
+    &__flag{
+      width: 30px;
+      margin-right: 10px;
+    }
+    &__title{
+      font-weight: bold;
+    }
+    &__value{
+      margin-left: auto;
+      color: $accent;
+    }
+    &--hidden{
+      display: none;
+    }
+    &:hover{
+      border-color:$accent;
+    }
+  }
+}

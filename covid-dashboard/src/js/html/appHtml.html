@@ -1,0 +1,142 @@
+<div class="app">
+  <div class="app__header">
+    <h1 class="app__title section section--header">COVID-19 Dashboard</h1>
+  </div>
+  <div class="app__body">
+    <div class="app__col1">
+      <div class="countries-list section">
+        <div class="section__fullscreen-button"></div>
+        <div class="countries-list__body"></div>
+      </div>
+    </div>
+    <div class="app__col2">
+      <div class="map" id="leafletMap">
+      </div>
+      <div class="legend section">
+        <p class="legend__title">Map legend and filter <span class="legend__arrow">›</span></p>
+        <div class="legend__inner">
+          <div class="legend__menu switch-block">
+            <div class="switch-block__section">
+              <select class="legend__select js-switch-select switch-block__select">
+                <option value="cases" selected>Infected</option>
+                <option value="recovered">Recovered</option>
+                <option value="deaths">Deaths</option>
+              </select>
+            </div>
+            <div class="switch-block__section">
+              <div class="radiogroup">
+                <label class="radiogroup__unit">
+                  <input type="radio" name="mapPeriod" id="mapAllTime" class="js-allTime">
+                  <span>All time</span>
+                </label>
+                <label class="radiogroup__unit">
+                  <input type="radio" checked name="mapPeriod" id="mapLastDay" class="js-day">
+                  <span>Last day </span>
+                </label>
+              </div>
+              <div class="radiogroup">
+                <label class="radiogroup__unit">
+                  <input type="radio" checked name="mapQuantity" id="mapAllPopulation" class="js-allPopulation">
+                  <span>All population</span>
+                </label>
+                <label class="radiogroup__unit">
+                  <input type="radio" name="mapQuantity" id="mapPer100k" class="js-per100k">
+                  <span>Per 100K </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="infection">
+            <p class="infection__title">Levels</p>
+            <div class="infection__box">
+              <div class="infection__circle">
+                high
+              </div>
+              <div class="infection__arrow">
+                -› -›
+              </div>
+              <div class="infection__circle infection__circle_small">
+                low
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="map-fullscreen"></div>
+    </div>
+    <div class="app__col3">
+      <div class="table1 section">
+        <div class="section__fullscreen-button"></div>
+        <div class="switch-block">
+          <div class="switch-block__section">
+            <div class="search">
+              <input type="text" placeholder="Search country" class="search__input switch-block__input" id="table1Input">
+              <div class="search__drop switch-block-search__body">
+              </div>
+            </div>
+          </div>
+          <div class="switch-block__section">
+            <button class="table1__cancel btn">Shown world stats</button>
+          </div>
+          <div class="switch-block__section table1__menu">
+            <div class="radiogroup">
+              <label class="radiogroup__unit">
+                <input type="radio" name="table1Period" id="table1AllTime" class="js-allTime">
+                <span>All time</span>
+              </label>
+              <label class="radiogroup__unit">
+                <input type="radio" checked name="table1Period" id="table1LastDay" class="js-day">
+                <span>Last day </span>
+              </label>
+            </div>
+            <div class="radiogroup">
+              <label class="radiogroup__unit">
+                <input type="radio" checked name="table1Quantity" id="table1AllPopulation" class="js-allPopulation">
+                <span>All population</span>
+              </label>
+              <label class="radiogroup__unit">
+                <input type="radio" name="table1Quantity" id="table1Per100k" class="js-per100k">
+                <span>Per 100K </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="table1__box">
+          <table class="table1__table">
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Infected</th>
+                <th>Recovered</th>
+                <th>Dead </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="table1Country" data-mode="world"></td>
+                <td id="table1Infected"></td>
+                <td id="table1Recovered"></td>
+                <td id="table1Dead"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="chart section">
+        <div class="section__fullscreen-button"></div>
+        <div class="chart__inner">
+          <canvas id="chart"></canvas>
+          <div class="chart__error"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="app__footer">
+    <div class="section">
+      <span class="app__footer-copyright">© 2020</span> Authors: <a href="https://github.com/helias17/"
+        class="app__footer-link" target="_blank">Helias</a> and <a href="https://github.com/heliken/"
+        class="app__footer-link" target="_blank">Heliken</a>
+      <a href="https://rs.school/js/" target="_blank" id="rsLogoLink"></a>
+    </div>
+  </div>
+</div>

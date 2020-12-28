@@ -1,0 +1,38 @@
+<h1 class="switch-block__title">World</h1>
+<div class="switch-block__section">
+  <div class="switch-block-search">
+    <input type="text" class="switch-block__input" placeholder="Search country">
+    <div class="switch-block-search__body">
+    </div>
+  </div>
+  <select class="switch-block__select js-switch-select">
+    <option value="cases">Infected</option>
+    <option value="recovered">Recovered</option>
+    <option value="deaths">Deaths</option>
+  </select>
+</div>
+<div class="switch-block__section">
+  <button class=" btn switch-block__button">Show world stats</button>
+</div>
+<div class="switch-block__section">
+  <div class="radiogroup radiogroup--period">
+    <label class="radiogroup__unit">
+      <input type="radio" value="all" checked class="js-allTime">
+      <span>All time</span>
+    </label>
+    <label class="radiogroup__unit">
+      <input type="radio" value="last" class="js-day">
+      <span>Per day</span>
+    </label>
+  </div>
+  <div class="radiogroup radiogroup--quantity">
+    <label class="radiogroup__unit">
+      <input type="radio" value="absolute" checked class="js-allPopulation">
+      <span>All population</span>
+    </label>
+    <label class="radiogroup__unit">
+      <input type="radio" value="relative" class="js-per100k">
+      <span>Per 100k</span>
+    </label>
+  </div>
+</div>

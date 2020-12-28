@@ -1,0 +1,76 @@
+.radiogroup{
+  font-size: 0.8rem;
+  display: flex;
+  flex-wrap:wrap;
+  margin-right: 1rem;
+  border: 1px solid $border-color;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  &:last-child{
+    margin-right: 0;
+  }
+  &__unit{
+    position: relative;
+    margin-right: .5rem;
+    &:last-child{
+      margin-right: 0;
+    }
+    input{
+      position: absolute;
+      top:0;
+      left:0;
+      width:0;
+      height:0;
+      pointer-events: none;
+    }
+    input:checked + span{
+      &:after{
+        transform:scale(1);
+      }
+    }
+    span{
+      position: relative;
+      padding-left: 20px;
+      &:before,&:after{
+        position: absolute;
+        content:"";
+        border-radius: 100%;
+        top:50%;
+        
+      }
+      &:before{
+        border:1px solid $accent;
+        width:14px;
+        height:14px;
+        left:0;
+        transform:translateY(-50%);
+      }
+      &:after{
+        background-color: $accent;
+        width:8px;
+        height:8px;
+        left:3px;
+        top:3px;
+        transition:transform .3s ease-in-out;
+        transform:scale(0);
+        transform-origin: center center;
+      }
+    }
+  }
+}
+@media (max-width: $screen-laptop-l) {
+  .radiogroup{
+    flex-direction: column;
+    &__unit{
+      margin-right: 0;
+    }
+  };
+}
+@media (max-width: $screen-laptop) {
+  .radiogroup{
+    flex-direction: row;
+    &__unit{
+      margin-right: .5rem;
+    }
+  };
+}

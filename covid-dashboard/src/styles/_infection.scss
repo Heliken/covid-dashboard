@@ -1,0 +1,33 @@
+.infection {
+  padding-top: 1rem;
+
+		&__title {
+      font-weight: 600;
+		}
+
+		&__box {
+      display: flex;
+      align-items: center;
+		}
+
+		&__circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 3px solid $accent;
+      background-color: rgba($accent, 0.3);
+      height: 70px;
+      width: 70px;
+
+			&_small {
+        height: 30px;
+        width: 30px;
+			}
+		}
+
+		&__arrow {
+      font-size: 1.5rem;
+      padding: 0 1rem;
+		}
+}

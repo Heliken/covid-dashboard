@@ -1,0 +1,31 @@
+
+.app__col2 .leaflet-top.leaflet-right {
+  white-space: nowrap;
+}
+
+.app__col2 .leaflet-top.leaflet-right > div {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.app__col2 .leaflet-top.leaflet-right .leaflet-control-zoom-in {
+  margin-right: 2px;
+}
+
+.app__col2 .leaflet-top.leaflet-right > div > a {
+  display: inline-block;
+}
+
+.app__col2 .leaflet-top.leaflet-right #print-container {
+  position: relative;
+  z-index: 9999;
+  float: none;
+  font-family: 'Fira Sans', sans-serif;
+  cursor: pointer;
+}
+
+.app__col2 .leaflet-top.leaflet-right .download-button {
+  display: block;
+  font-family: 'Fira Sans', sans-serif;
+}
+

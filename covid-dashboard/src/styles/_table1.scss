@@ -1,0 +1,29 @@
+.table1 {
+  margin-bottom: 1rem;
+
+
+  &__period, &__quantity {
+    border: 1px solid $border-color;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+  }
+
+  &__box {
+    flex-grow: 1;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 1rem;
+  }
+
+  &__table {
+    width: 100%;
+    & th {
+      padding-bottom: .3rem;
+      text-align: left;
+    }
+  }
+
+
+
+}

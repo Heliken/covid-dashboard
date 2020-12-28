@@ -1,0 +1,19 @@
+.map-fullscreen {
+  position: absolute;
+  right: 140px;
+  top: 12px;
+  z-index: 999;
+  width: 30px;
+  height: 30px;
+  background: #fff url('../images/icon-fullscreen.svg') no-repeat center center / contain;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &_exit {
+    background-image: url('../images/icon-exit-fullscreen.svg');
+  }
+}

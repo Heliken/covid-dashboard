@@ -1,0 +1,28 @@
+import './styles/index.scss';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.bigimage/dist/Leaflet.BigImage.min.css';
+import './styles/leaflet_add.scss';
+import '@babel/polyfill';
+import insertAppTemplate from './js/modules/insertAppTemplate.js';
+import addImages from './js/modules/addImages.js';
+import Table1 from './js/modules/Table1.js';
+import SearchCountries from './js/modules/SearchCountries.js';
+import countries from './js/modules/countries.js';
+import dom from './js/modules/dom.js';
+import chartBlock from './js/modules/chartBlock.js';
+import map from './js/modules/map.js';
+import countriesList from './js/modules/countriesList.js';
+import uiActions from './js/modules/uiActions.js';
+
+insertAppTemplate();
+addImages();
+dom.setElements();
+const appTable1 = new Table1();
+appTable1.init();
+countries.loadStats();
+const table1Search = new SearchCountries();
+table1Search.init();
+chartBlock.init();
+countriesList.init();
+uiActions();
+map();

@@ -1,0 +1,23 @@
+html, body {
+  height: 100vh;
+  font-size: 15px;
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 500;
+  overflow: hidden;
+
+  @media (max-width: $screen-laptop) {
+    height: auto;
+    overflow-y: auto;
+  }
+}
+::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #555;
+}
